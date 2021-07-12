@@ -1,0 +1,84 @@
+@extends('layouts.Officetask')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">当月従業員詳細
+
+                <?php
+                $nowdatetime=new DateTime();
+                echo $nowdatetime->format('Y年m月d日')."現在"." "."従業員名".":";
+                ?>
+                {{$offece->your_name}}
+
+
+
+
+                </div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+
+                   <?php
+
+                                    //タイムゾーン設定
+                    date_default_timezone_set('Asia/Tokyo');
+
+                    //表示させる年月を設定　↓これは現在の月
+                    $year = date('Y');
+                    $month = date('m');
+
+                    //月末日を取得
+                    $end_month = date('t', strtotime($year.$month.'01'));
+                    //date('t')は当月の日数を表示する
+
+
+                    $aryCalendar = [];
+
+            //1日から月末日までループ
+            for ($i = 1; $i <= $end_month; $i++){
+                $aryCalendar[$i]['day'] = $i;
+                // $aryCalendar[$i]['week'] = date('w', strtotime($year.$month.sprintf('%02d', $i)));
+                 $aryCalendar[$i]['week'] = date('w', strtotime($year.$month.sprintf('%02d', $i)));
+            }
+
+
+            $aryWeek = ['日', '月', '火', '水', '木', '金', '土'];
+                         ?>
+            <table class="table table-hover table table-bordered">
+
+                    <tr>
+                        <th>日付</th>
+                        <th>始業時間</th>
+                        <th>休憩時間</th>
+                        <th>戻り時間</th>
+                        <th>退勤時間</th>
+                    </tr>
+                    <?php foreach($aryCalendar as $value){ ?>
+
+
+                        <td><?php echo $value['day']."日" ?>(<?php echo $aryWeek[$value['week']] ?>)</td>
+                        <td>{{$time->start_time}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <?php } ?>
+             </table>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
