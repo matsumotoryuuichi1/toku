@@ -28,7 +28,6 @@ class OfficeController extends Controller
      }
 
 
-
     public function index(Request $request)
     {
        $office_send_index=DB::table('offices')->select('id','your_name','section','gender','created_at')->get();
@@ -53,8 +52,6 @@ class OfficeController extends Controller
 
        $offices=$query->paginate(20);
      return  view('Office/index',compact('offices'));
-
-
 
     }
 
@@ -116,9 +113,6 @@ class OfficeController extends Controller
 
     }
 
-
-
-
      public function start_store(startrequest $request)
      //以下４つ打刻用
       {
@@ -172,10 +166,6 @@ class OfficeController extends Controller
          }
 
 
-
-
-
-
     /**
      * Display the specified resource.
      *
@@ -184,12 +174,6 @@ class OfficeController extends Controller
      */
     public function show($id)
     {
-        //従業員の時間テーブルを追記する
-
-
-
-        // $offece=Office::find($id);
-        // return view('Office/show',compact('offece'));
 
          $office=Office::find($id);
 
@@ -197,23 +181,6 @@ class OfficeController extends Controller
 
         return view('Office/show',compact('office','time'));
     }
-
-    public function test(){
-        $test=Office::find(1)->times;
-        // dd($test->start_time);
-
-        $test=Office::find(1)->times;
-        dd($test);
-    }
-
-
-
-
-
-
-
-
-
 
 
 
