@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// Route::group(['middleware' => 'web'], function () {
+
+//     //
+//     Route::auth();
+
+//     //これ
+//     Route::get('/home', 'HomeController@index');
+// });
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,7 +31,10 @@ Auth::routes();
 
 //Office
 Route::group(['prefix'=>'Office','middleware'=>'auth'], function (){
+
 Route::get('home','OfficeController@home')->name('Office/home');
+ //Route::get('/register', 'Auth\RegisterController@getRegister')->name('register');
+// Route::post('/register', 'Auth\RegisterController@postRegister')->name('register');
 Route::get('index','OfficeController@index')->name('Office/index');
 Route::get('formcreate','OfficeController@formcreate')->name('Office/formcreate');
 Route::get('start_create','OfficeController@start_create')->name('Office/start_create');
